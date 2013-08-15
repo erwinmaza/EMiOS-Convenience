@@ -301,15 +301,23 @@
 
 - (void)addShadow {
 	self.clipsToBounds = FALSE;
-	self.layer.shadowColor = [[UIColor blackColor] CGColor];
-	self.layer.shadowOffset = CGSizeMake(4, 4);
-	self.layer.shadowOpacity = 0.65;
-	self.layer.shadowRadius = 3;
+	self.layer.shadowColor = [[UIColor lightGrayColor] CGColor];
+	self.layer.shadowOffset = CGSizeMake(3, 2);
+	self.layer.shadowOpacity = 0.85;
+	self.layer.shadowRadius = 2;
 }
 
 - (void)roundCorners {
 	self.clipsToBounds = TRUE;
-	self.layer.cornerRadius = 10;
+	self.layer.cornerRadius = 5;
+}
+
+- (void)removeSubviews {
+	LogMethod
+    
+	for (UIView *view in self.subviews) {
+		[view removeFromSuperview];
+	}
 }
 
 - (UIImage*)snapshot {

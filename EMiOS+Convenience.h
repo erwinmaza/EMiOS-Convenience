@@ -102,6 +102,7 @@
 	- (void)centerHorizontallyInContainer;
 	- (void)addShadow;
 	- (void)roundCorners;
+	- (void)removeSubviews;
 	- (UIImage*)snapshot;
 
 @end
