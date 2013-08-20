@@ -271,6 +271,20 @@
 
 #pragma mark UI Kit ************
 
+#pragma mark UIImage
+@implementation UIImage (EMiOS_Convenience)
+
+- (UIImage*)antiAliased {
+	CGRect imageRect = CGRectMake(0, 0, self.size.width, self.size.height);
+	UIGraphicsBeginImageContextWithOptions(imageRect.size, TRUE, 0.0);
+	[self drawInRect:CGRectMake(1, 1, self.size.width - 2, self.size.height - 2)];
+	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return img;
+}
+
+@end
+
 #pragma mark UIView
 @implementation UIView (EMiOS_Convenience)
 
@@ -320,6 +334,26 @@
 	}
 }
 
+- (void)setFrameAttribute:(enumFrameAttribute)attribute value:(int)value {
+	CGRect myFrame = self.frame;
+	switch (attribute) {
+		case frameAttributeX: {
+			myFrame.origin.x = value;
+			break;
+		} case frameAttributeY: {
+			myFrame.origin.y = value;
+			break;
+		} case frameAttributeWidth: {
+			myFrame.size.width = value;
+			break;
+		} case frameAttributeHeight: {
+			myFrame.size.height = value;
+			break;
+		}
+	}
+	self.frame = myFrame;
+}
+
 - (UIImage*)snapshot {
 	//	LogMethod
 	UIGraphicsBeginImageContextWithOptions(self.frame.size, FALSE, 0.0f);
@@ -340,10 +374,10 @@
 
 - (void)forcePopoverSize {
 	
-    CGSize currentSetSizeForPopover = self.contentSizeForViewInPopover;
+    CGSize currentSetSizeForPopover = self.preferredContentSize;
     CGSize tmpSize = CGSizeMake(currentSetSizeForPopover.width - 1.0f, currentSetSizeForPopover.height - 1.0f);
-    self.contentSizeForViewInPopover = tmpSize;
-    self.contentSizeForViewInPopover = currentSetSizeForPopover;
+    self.preferredContentSize = tmpSize;
+    self.preferredContentSize = currentSetSizeForPopover;
 }
 
 @end

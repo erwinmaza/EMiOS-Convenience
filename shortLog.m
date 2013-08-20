@@ -9,6 +9,7 @@
 void ShortNSLog(const char *functionName, int lineNumber, NSString *format, ...) {
 
 	NSString *body = @"";
+	NSString *thread = @"";
 	
 	if (format) {
 		va_list ap;
@@ -18,7 +19,7 @@ void ShortNSLog(const char *functionName, int lineNumber, NSString *format, ...)
 	}
 	
 	if (![NSThread isMainThread]) {
-		body = [NSString stringWithFormat:@"<%@>%@", [NSThread currentThread], body];
+		thread = [NSString stringWithFormat:@"<%@>", [NSThread currentThread]];;
 	}
 	
 	struct timeval detail_time;
@@ -31,7 +32,7 @@ void ShortNSLog(const char *functionName, int lineNumber, NSString *format, ...)
 	timeinfo = localtime(&rawtime);
 	strftime(timestamp, 11, "%M:%S", timeinfo);
 	
-	fprintf(stderr, "%s.%-3d %s:%d\t\t%s\n", timestamp, detail_time.tv_usec / 1000, functionName, lineNumber, [body UTF8String]);
+	fprintf(stderr, "%s.%-3d %s:%d%s\t\t%s\n", timestamp, detail_time.tv_usec / 1000, functionName, lineNumber, [thread UTF8String], [body UTF8String]);
 }
 
 @implementation shortLog

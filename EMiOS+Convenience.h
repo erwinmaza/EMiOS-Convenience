@@ -32,6 +32,7 @@
 #define kUserDateShortFormat			@"MMM d"
 
 
+
 #pragma mark Base Types ************
 @interface NSObject (EMiOS_Convenience)
 
@@ -96,14 +97,29 @@
 @end
 
 #pragma mark UI Kit ************
+
+@interface UIImage (EMiOS_Convenience)
+
+	- (UIImage*)antiAliased;
+
+@end
+
 @interface UIView (EMiOS_Convenience)
+
+	typedef NS_ENUM(NSInteger, enumFrameAttribute) {
+		frameAttributeX			= 1,
+		frameAttributeY			= 2,
+		frameAttributeWidth		= 3,
+		frameAttributeHeight	= 4
+	};
 
 	- (void)centerVerticallyInContainer;
 	- (void)centerHorizontallyInContainer;
 	- (void)addShadow;
 	- (void)roundCorners;
 	- (void)removeSubviews;
-	- (UIImage*)snapshot;
+ 	- (void)setFrameAttribute:(enumFrameAttribute)attribute value:(int)value;
+ 	- (UIImage*)snapshot;
 
 @end
 
