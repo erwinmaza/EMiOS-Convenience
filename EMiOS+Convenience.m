@@ -313,7 +313,7 @@
 }
 
 - (void)removeSubviews {
-	LogMethod
+//	LogMethod
     
 	for (UIView *view in self.subviews) {
 		[view removeFromSuperview];
