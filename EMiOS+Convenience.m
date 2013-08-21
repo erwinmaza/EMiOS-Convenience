@@ -327,8 +327,6 @@
 }
 
 - (void)removeSubviews {
-//	LogMethod
-    
 	for (UIView *view in self.subviews) {
 		[view removeFromSuperview];
 	}
@@ -373,11 +371,20 @@
 @implementation UIViewController (EMiOS_Convenience)
 
 - (void)forcePopoverSize {
-	
-    CGSize currentSetSizeForPopover = self.preferredContentSize;
-    CGSize tmpSize = CGSizeMake(currentSetSizeForPopover.width - 1.0f, currentSetSizeForPopover.height - 1.0f);
-    self.preferredContentSize = tmpSize;
-    self.preferredContentSize = currentSetSizeForPopover;
+
+	if ([self respondsToSelector:NSSelectorFromString(@"setPreferredContentSize:")]) {
+		CGSize currentSetSizeForPopover = [[self valueForKey:@"preferredContentSize"] CGSizeValue];
+		CGSize tmpSize = CGSizeMake(currentSetSizeForPopover.width - 1.0f, currentSetSizeForPopover.height - 1.0f);
+		[self setValue:[NSValue valueWithCGSize:tmpSize] forKey:@"preferredContentSize"];
+		[self setValue:[NSValue valueWithCGSize:currentSetSizeForPopover] forKey:@"preferredContentSize"];
+	} else {
+	#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+		CGSize currentSetSizeForPopover = self.contentSizeForViewInPopover;
+		CGSize tmpSize = CGSizeMake(currentSetSizeForPopover.width - 1.0f, currentSetSizeForPopover.height - 1.0f);
+		self.contentSizeForViewInPopover = tmpSize;
+		self.contentSizeForViewInPopover = currentSetSizeForPopover;
+	#pragma clang diagnostic warning "-Wdeprecated-declarations"
+	}
 }
 
 @end
