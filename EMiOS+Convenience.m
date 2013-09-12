@@ -245,7 +245,7 @@
 	if (index < [self count]) return index;
 
 	double intpart;
-	modf((float)index / (float)[self count], &intpart);
+	modf((CGFloat)index / (CGFloat)[self count], &intpart);
 	index -= [self count] * intpart;
 
 	return index;
