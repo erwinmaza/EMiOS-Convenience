@@ -8,8 +8,15 @@
 
 void ShortNSLog(const char *functionName, int lineNumber, NSString *format, ...) {
 
+	NSString *prefix = @"";
 	NSString *body = @"";
 	NSString *thread = @"";
+	
+	if (functionName) {
+		prefix = [NSString stringWithFormat:@"%s:%d", functionName, lineNumber];
+	} else {
+		prefix = @" -->  ";
+	}
 	
 	if (format) {
 		va_list ap;
@@ -32,7 +39,7 @@ void ShortNSLog(const char *functionName, int lineNumber, NSString *format, ...)
 	timeinfo = localtime(&rawtime);
 	strftime(timestamp, 11, "%M:%S", timeinfo);
 	
-	fprintf(stderr, "%s.%-3d %s:%d%s\t\t%s\n", timestamp, detail_time.tv_usec / 1000, functionName, lineNumber, [thread UTF8String], [body UTF8String]);
+	fprintf(stderr, "%s.%-3d %s%s%s\n", timestamp, detail_time.tv_usec / 1000, [prefix UTF8String], [thread UTF8String], [body UTF8String]);
 }
 
 @implementation shortLog
