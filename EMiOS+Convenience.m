@@ -259,8 +259,6 @@
 - (void)shuffle {
     NSUInteger count = [self count];
     for (NSUInteger i = 0; i < count; ++i) {
-		//        NSUInteger nElements = count - i;
-		//        NSUInteger n = (arc4random() % nElements) + i;
         NSUInteger n = arc4random_uniform(i + 1);
         [self exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
