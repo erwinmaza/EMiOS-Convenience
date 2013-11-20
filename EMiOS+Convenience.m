@@ -259,7 +259,7 @@
 - (void)shuffle {
     NSUInteger count = [self count];
     for (NSUInteger i = 0; i < count; ++i) {
-        NSUInteger n = arc4random_uniform(i + 1);
+        NSUInteger n = arc4random_uniform((uint)i + 1);
         [self exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
 }
@@ -290,8 +290,8 @@
 	CGRect selfFrame = self.frame;
 	CGRect superFrame = self.superview.frame;
 	
-	selfFrame.origin.y = floorf((superFrame.size.height - selfFrame.size.height) / 2.0f);
-	selfFrame.origin.x = floorf((superFrame.size.width - selfFrame.size.width) / 2.0f);
+	selfFrame.origin.y = (CGFloat)floor((superFrame.size.height - selfFrame.size.height) / 2);
+	selfFrame.origin.x = (CGFloat)floor((superFrame.size.width - selfFrame.size.width) / 2);
 	self.frame = selfFrame;
 }
 
@@ -299,7 +299,7 @@
 	CGRect selfFrame = self.frame;
 	CGRect superFrame = self.superview.frame;
 	
-	selfFrame.origin.y = floorf((superFrame.size.height - selfFrame.size.height) / 2.0f);
+	selfFrame.origin.y = (CGFloat)floor((superFrame.size.height - selfFrame.size.height) / 2);
 	self.frame = selfFrame;
 }
 
@@ -307,7 +307,7 @@
 	CGRect selfFrame = self.frame;
 	CGRect superFrame = self.superview.frame;
 	
-	selfFrame.origin.x = floorf((superFrame.size.width - selfFrame.size.width) / 2.0f);
+	selfFrame.origin.x = (CGFloat)floor((superFrame.size.width - selfFrame.size.width) / 2);
 	self.frame = selfFrame;
 }
 
@@ -441,8 +441,8 @@
 	return ([value length] > 0)? value : defaultValue;
 }
 
-- (int)enumForKey:(NSString*)key default:(int)defaultValue {
-	int value = [self integerForKey:key];
+- (NSInteger)enumForKey:(NSString*)key default:(NSInteger)defaultValue {
+	NSInteger value = [self integerForKey:key];
 	return (value > 0)? value : defaultValue;
 }
 
