@@ -68,6 +68,10 @@
 	return array;
 }
 
+- (NSArray*)toArray {
+	return [NSArray arrayWithArray:[self toMutableArray]];
+}
+
 @end
 
 #pragma mark NSNumber

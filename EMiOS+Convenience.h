@@ -51,6 +51,7 @@
 @interface NSSet (EMiOS_Convenience)
 
 - (NSMutableArray*)toMutableArray;
+- (NSArray*)toArray;
 
 @end
 
