@@ -29,12 +29,10 @@
 
 #import "EMiOS+Convenience.h"
 
-#pragma mark Base Types ************
-
 #pragma mark NSObject
 @implementation NSObject (EMiOS_Convenience)
 
-- (void *)performSelector:(SEL)selector withValue:(void *)value afterDelay:(NSTimeInterval*)delay {
+- (void*)performSelector:(SEL)selector withValue:(void*)value afterDelay:(NSTimeInterval*)delay {
 	NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:selector]];
 	[invocation setSelector:selector];
 	[invocation setTarget:self];
@@ -46,30 +44,13 @@
 	
 	// If method is non-void:
 	if (length > 0) {
-		void *buffer = (void *)malloc(length);
+		void *buffer = (void*)malloc(length);
 		[invocation getReturnValue:buffer];
 		return buffer;
 	}
 	
 	// If method is void:
 	return NULL;
-}
-
-@end
-
-#pragma mark NSSet
-@implementation NSSet (EMiOS_Convenience)
-
-- (NSMutableArray*)toMutableArray {
-	NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
-	for (id thing in self) {
-		[array addObject:thing];
-	}
-	return array;
-}
-
-- (NSArray*)toArray {
-	return [NSArray arrayWithArray:[self toMutableArray]];
 }
 
 @end
@@ -138,6 +119,7 @@
 - (NSString*)toUserFormat {
 	NSString *formattedDate = @"";
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	formatter.doesRelativeDateFormatting = TRUE;
 	[formatter setDateFormat:kUserDateFormat];
 	
 	formattedDate = [formatter stringFromDate:self];
@@ -241,6 +223,39 @@
 
 @end
 
+#pragma mark NSSet
+@implementation NSSet (EMiOS_Convenience)
+
+- (NSMutableArray*)toMutableArray {
+	NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
+	for (id thing in self) {
+		[array addObject:thing];
+	}
+	return array;
+}
+
+- (NSArray*)toArray {
+	return [NSArray arrayWithArray:[self toMutableArray]];
+}
+
+@end
+
+#pragma mark NSOrderedSet
+@implementation NSOrderedSet (EMiOS_Convenience)
+
+- (NSUInteger)loopedIndexForProposedIndex:(NSUInteger)index {
+	
+	if (index < [self count]) return index;
+	
+	double intpart;
+	modf((CGFloat)index / (CGFloat)[self count], &intpart);
+	index -= [self count] * intpart;
+	
+	return index;
+}
+
+@end
+
 #pragma mark Array
 @implementation NSArray (EMiOS_Convenience)
 
@@ -262,16 +277,14 @@
 
 - (void)shuffle {
     NSUInteger count = [self count];
-    for (NSUInteger i = 0; i < count; ++i) {
+	if (count == 0) return;
+    for (NSUInteger i = count - 1; i > 0; i--) {
         NSUInteger n = arc4random_uniform((uint)i + 1);
         [self exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
 }
 
 @end
-
-
-#pragma mark UI Kit ************
 
 #pragma mark UIImage
 @implementation UIImage (EMiOS_Convenience)
@@ -418,7 +431,7 @@
 
 @implementation UIDevice (EMiOS_Convenience)
 
-- (NSString *) platform{
+- (NSString*)platform {
     int mib[2];
 	size_t len;
 	char *machine;
@@ -436,7 +449,6 @@
 
 @end
 
-#pragma mark System Objects ************
 #pragma mark UserDefaults
 @implementation NSUserDefaults (EMiOS_Convenience)
 

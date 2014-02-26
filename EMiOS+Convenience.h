@@ -31,27 +31,17 @@
 #define kUserDateFormat					@"MMM d, YYYY"
 #define kUserDateShortFormat			@"MMM d"
 
-
-
 #pragma mark Base Types ************
 @interface NSObject (EMiOS_Convenience)
 
-- (void *)performSelector:(SEL)selector withValue:(void *)value afterDelay:(NSTimeInterval*)delay;
+- (void*)performSelector:(SEL)selector withValue:(void*)value afterDelay:(NSTimeInterval*)delay;
 
 @end
 
 
 @interface NSNumber (EMiOS_Convenience)
 
-- (NSNumber *)add:(int)value;
-
-@end
-
-
-@interface NSSet (EMiOS_Convenience)
-
-- (NSMutableArray*)toMutableArray;
-- (NSArray*)toArray;
+- (NSNumber*)add:(int)value;
 
 @end
 
@@ -68,16 +58,16 @@
 
 - (NSString*)fullyEncodedStringWithEncoding:(NSStringEncoding)encoding;
 - (NSString*)fullyEncodedString;
-- (UIColor *)toColor;
-- (NSDate *)toDate;
-- (NSString *)stringBySanitizingUserContent;
+- (UIColor*)toColor;
+- (NSDate*)toDate;
+- (NSString*)stringBySanitizingUserContent;
 
 @end
 
 
 @interface NSDictionary (EMiOS_Convenience)
 
-- (NSString *)stringForKey:(NSString*)key;
+- (NSString*)stringForKey:(NSString*)key;
 - (NSNumber*)numberForKey:(NSString*)key;
 - (NSDate*)dateForDateKey:(NSString*)key;
 - (int)intForKey:(NSString*)key;
@@ -85,6 +75,19 @@
 
 @end
 
+@interface NSSet (EMiOS_Convenience)
+
+- (NSMutableArray*)toMutableArray;
+- (NSArray*)toArray;
+
+@end
+
+@interface NSOrderedSet (EMiOS_Convenience)
+
+- (NSUInteger)loopedIndexForProposedIndex:(NSUInteger)index;
+	
+@end
+	
 @interface NSArray (EMiOS_Convenience)
 
 - (NSUInteger)loopedIndexForProposedIndex:(NSUInteger)index;
@@ -98,7 +101,6 @@
 @end
 
 #pragma mark UI Kit ************
-
 @interface UIImage (EMiOS_Convenience)
 
 	- (UIImage*)antiAliased;
@@ -108,10 +110,10 @@
 @interface UIView (EMiOS_Convenience)
 
 	typedef NS_ENUM(NSInteger, enumFrameAttribute) {
-		frameAttributeX			= 1,
-		frameAttributeY			= 2,
-		frameAttributeWidth		= 3,
-		frameAttributeHeight	= 4
+		frameAttributeX			 = 1,
+		frameAttributeY			 = 2,
+		frameAttributeWidth		 = 3,
+		frameAttributeHeight	 = 4
 	};
 
 	- (void)centerVerticallyInContainer;
@@ -141,14 +143,14 @@
 
 @interface UIColor (EMiOS_Convenience)
 
-	- (NSString *)toString;
+	- (NSString*)toString;
 
 @end
 
 
 @interface UIDevice (EMiOS_Convenience)
 
-	- (NSString *)platform;
+	- (NSString*)platform;
 
 @end
 

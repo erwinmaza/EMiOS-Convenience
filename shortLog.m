@@ -6,7 +6,7 @@
 #import "shortLog.h"
 #import <sys/time.h>
 
-void ShortNSLog(const char *functionName, int lineNumber, NSString *format, ...) {
+void ShortNSLog(const char * functionName, int lineNumber, NSString * format, ...) {
 
 	NSString *prefix = @"";
 	NSString *body = @"";
@@ -30,7 +30,7 @@ void ShortNSLog(const char *functionName, int lineNumber, NSString *format, ...)
 	}
 	
 	struct timeval detail_time;
-	gettimeofday(&detail_time,NULL);
+	gettimeofday(&detail_time, NULL);
 
 	time_t rawtime;
 	struct tm *timeinfo;
@@ -43,6 +43,5 @@ void ShortNSLog(const char *functionName, int lineNumber, NSString *format, ...)
 }
 
 @implementation shortLog
-
 
 @end
