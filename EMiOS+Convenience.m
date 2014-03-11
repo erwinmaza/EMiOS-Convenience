@@ -332,7 +332,7 @@
 	self.clipsToBounds = FALSE;
 	self.layer.shadowColor = [[UIColor lightGrayColor] CGColor];
 	self.layer.shadowOffset = CGSizeMake(3, 2);
-	self.layer.shadowOpacity = 0.85;
+	self.layer.shadowOpacity = 0.85f;
 	self.layer.shadowRadius = 2;
 }
 
