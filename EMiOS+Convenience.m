@@ -380,6 +380,24 @@
 	return image;
 }
 
+- (UIImage*)snapshotOfViewHierarchy {
+	//	LogMethod
+    UIGraphicsBeginImageContextWithOptions(self.window.bounds.size, YES, UIScreen.mainScreen.scale);
+    [self.window drawViewHierarchyInRect:self.window.bounds afterScreenUpdates:NO];
+	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//	UIGraphicsEndImageContext();
+
+    UIInterfaceOrientation interfaceOrientation = self.window.rootViewController.interfaceOrientation;
+    if (interfaceOrientation != UIInterfaceOrientationPortrait) {
+		UIImageOrientation newOrientation = UIImageOrientationDown;
+		if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) newOrientation = UIImageOrientationRight;
+		if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) newOrientation = UIImageOrientationLeft;
+		image = [[UIImage alloc] initWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:UIImageOrientationLeft];
+	}
+	
+	return image;
+}
+
 @end
 
 #pragma mark UIViewController

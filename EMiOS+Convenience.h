@@ -123,6 +123,7 @@
 	- (void)removeSubviews;
  	- (void)setFrameAttribute:(enumFrameAttribute)attribute value:(int)value;
  	- (UIImage*)snapshot;
+	- (UIImage*)snapshotOfViewHierarchy;
 
 @end
 
