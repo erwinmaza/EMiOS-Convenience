@@ -392,7 +392,7 @@
 		UIImageOrientation newOrientation = UIImageOrientationDown;
 		if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) newOrientation = UIImageOrientationRight;
 		if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) newOrientation = UIImageOrientationLeft;
-		image = [[UIImage alloc] initWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:UIImageOrientationLeft];
+		image = [[UIImage alloc] initWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:newOrientation];
 	}
 	
 	return image;
