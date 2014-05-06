@@ -90,7 +90,7 @@
 	@catch (NSException * e) {
 		NSLog(@"Failed to convert '%@' to a color", self);
 	}
-    return color;
+	return color;
 }
 
 - (NSDate*)toDate {
@@ -259,15 +259,27 @@
 #pragma mark Array
 @implementation NSArray (EMiOS_Convenience)
 
+- (id)loopedObjectAtProposedIndex:(NSUInteger)index {
+	if (index < [self count]) return [self objectAtIndex:index];
+	return [self objectAtIndex:[self loopedIndexForProposedIndex:index]];
+}
+
 - (NSUInteger)loopedIndexForProposedIndex:(NSUInteger)index {
-
+	
 	if (index < [self count]) return index;
-
+	
 	double intpart;
 	modf((CGFloat)index / (CGFloat)[self count], &intpart);
 	index -= [self count] * intpart;
-
+	
 	return index;
+}
+
+- (id)randomObject {
+	NSUInteger count = [self count];
+	if (count == 0) return nil;
+	NSUInteger n = arc4random_uniform((uint)count);
+	return [self objectAtIndex:n];
 }
 
 @end
@@ -276,12 +288,12 @@
 @implementation NSMutableArray (EMiOS_Convenience)
 
 - (void)shuffle {
-    NSUInteger count = [self count];
+	NSUInteger count = [self count];
 	if (count == 0) return;
-    for (NSUInteger i = count - 1; i > 0; i--) {
-        NSUInteger n = arc4random_uniform((uint)i + 1);
-        [self exchangeObjectAtIndex:i withObjectAtIndex:n];
-    }
+	for (NSUInteger i = count - 1; i > 0; i--) {
+		NSUInteger n = arc4random_uniform((uint)i + 1);
+		[self exchangeObjectAtIndex:i withObjectAtIndex:n];
+	}
 }
 
 @end
@@ -382,13 +394,23 @@
 
 - (UIImage*)snapshotOfViewHierarchy {
 	//	LogMethod
-    UIGraphicsBeginImageContextWithOptions(self.window.bounds.size, YES, UIScreen.mainScreen.scale);
-    [self.window drawViewHierarchyInRect:self.window.bounds afterScreenUpdates:NO];
+	UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, UIScreen.mainScreen.scale);
+	[self drawViewHierarchyInRect:self.bounds afterScreenUpdates:TRUE];
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//	UIGraphicsEndImageContext();
+	UIGraphicsEndImageContext();
+	
+	return image;
+}
 
-    UIInterfaceOrientation interfaceOrientation = self.window.rootViewController.interfaceOrientation;
-    if (interfaceOrientation != UIInterfaceOrientationPortrait) {
+- (UIImage*)snapshotOfWindow {
+	//	LogMethod
+	UIGraphicsBeginImageContextWithOptions(self.window.bounds.size, YES, UIScreen.mainScreen.scale);
+	[self.window drawViewHierarchyInRect:self.window.bounds afterScreenUpdates:NO];
+	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+	//	UIGraphicsEndImageContext();
+	
+	UIInterfaceOrientation interfaceOrientation = self.window.rootViewController.interfaceOrientation;
+	if (interfaceOrientation != UIInterfaceOrientationPortrait) {
 		UIImageOrientation newOrientation = UIImageOrientationDown;
 		if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) newOrientation = UIImageOrientationRight;
 		if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) newOrientation = UIImageOrientationLeft;
@@ -404,19 +426,19 @@
 @implementation UIViewController (EMiOS_Convenience)
 
 - (void)forcePopoverSize {
-
+	
 	if ([self respondsToSelector:NSSelectorFromString(@"setPreferredContentSize:")]) {
 		CGSize currentSetSizeForPopover = [[self valueForKey:@"preferredContentSize"] CGSizeValue];
 		CGSize tmpSize = CGSizeMake(currentSetSizeForPopover.width - 1.0f, currentSetSizeForPopover.height - 1.0f);
 		[self setValue:[NSValue valueWithCGSize:tmpSize] forKey:@"preferredContentSize"];
 		[self setValue:[NSValue valueWithCGSize:currentSetSizeForPopover] forKey:@"preferredContentSize"];
 	} else {
-	#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 		CGSize currentSetSizeForPopover = self.contentSizeForViewInPopover;
 		CGSize tmpSize = CGSizeMake(currentSetSizeForPopover.width - 1.0f, currentSetSizeForPopover.height - 1.0f);
 		self.contentSizeForViewInPopover = tmpSize;
 		self.contentSizeForViewInPopover = currentSetSizeForPopover;
-	#pragma clang diagnostic warning "-Wdeprecated-declarations"
+#pragma clang diagnostic warning "-Wdeprecated-declarations"
 	}
 }
 
@@ -450,7 +472,7 @@
 @implementation UIDevice (EMiOS_Convenience)
 
 - (NSString*)platform {
-    int mib[2];
+	int mib[2];
 	size_t len;
 	char *machine;
 	
@@ -460,8 +482,8 @@
 	machine = malloc(len);
 	sysctl(mib, 2, machine, &len, NULL, 0);
 	
-    NSString *platform = [NSString stringWithCString:machine encoding:NSASCIIStringEncoding];
-    free(machine);
+	NSString *platform = [NSString stringWithCString:machine encoding:NSASCIIStringEncoding];
+	free(machine);
 	return platform;
 }
 

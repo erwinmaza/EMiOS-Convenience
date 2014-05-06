@@ -90,7 +90,9 @@
 	
 @interface NSArray (EMiOS_Convenience)
 
+- (id)loopedObjectAtProposedIndex:(NSUInteger)index;
 - (NSUInteger)loopedIndexForProposedIndex:(NSUInteger)index;
+- (id)randomObject;
 
 @end
 
@@ -124,6 +126,7 @@
  	- (void)setFrameAttribute:(enumFrameAttribute)attribute value:(int)value;
  	- (UIImage*)snapshot;
 	- (UIImage*)snapshotOfViewHierarchy;
+	- (UIImage*)snapshotOfWindow;
 
 @end
 
