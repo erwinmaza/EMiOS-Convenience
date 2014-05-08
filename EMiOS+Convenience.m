@@ -404,19 +404,30 @@
 
 - (UIImage*)snapshotOfWindow {
 	//	LogMethod
+
 	UIGraphicsBeginImageContextWithOptions(self.window.bounds.size, YES, UIScreen.mainScreen.scale);
 	[self.window drawViewHierarchyInRect:self.window.bounds afterScreenUpdates:NO];
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-	//	UIGraphicsEndImageContext();
-	
+	UIGraphicsEndImageContext();
+
 	UIInterfaceOrientation interfaceOrientation = self.window.rootViewController.interfaceOrientation;
 	if (interfaceOrientation != UIInterfaceOrientationPortrait) {
+	
+		CGSize size = self.window.bounds.size;
+		CGSize newSize = CGSizeMake(size.height, size.width);
+	
 		UIImageOrientation newOrientation = UIImageOrientationDown;
 		if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) newOrientation = UIImageOrientationRight;
 		if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) newOrientation = UIImageOrientationLeft;
-		image = [[UIImage alloc] initWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:newOrientation];
+
+		UIImage *image2 = [[UIImage alloc] initWithCGImage:image.CGImage scale:UIScreen.mainScreen.scale orientation:newOrientation];
+
+		UIGraphicsBeginImageContextWithOptions(newSize, YES, UIScreen.mainScreen.scale);
+		[image2 drawAtPoint:CGPointZero];
+		image = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
 	}
-	
+
 	return image;
 }
 
