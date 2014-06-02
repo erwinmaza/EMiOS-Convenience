@@ -359,6 +359,12 @@
 	}
 }
 
+- (void)removeSubviewsOfClass:(Class)class {
+	for (UIView *view in self.subviews) {
+		if ([view isMemberOfClass:class]) [view removeFromSuperview];
+	}
+}
+
 - (void)setFrameAttribute:(enumFrameAttribute)attribute value:(int)value {
 	CGRect myFrame = self.frame;
 	switch (attribute) {

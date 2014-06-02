@@ -26,7 +26,7 @@ void ShortNSLog(const char * functionName, int lineNumber, NSString * format, ..
 	}
 	
 	if (![NSThread isMainThread]) {
-		thread = [NSString stringWithFormat:@"<%@>", [NSThread currentThread]];;
+		thread = [NSString stringWithFormat:@"<%@>", [NSThread currentThread]];
 	}
 	
 	struct timeval detail_time;
