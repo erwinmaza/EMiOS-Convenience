@@ -125,6 +125,7 @@
 	- (void)removeSubviews;
 	- (void)removeSubviewsOfClass:(Class)class;
  	- (void)setFrameAttribute:(enumFrameAttribute)attribute value:(int)value;
+	- (NSValue*)absoluteCoordsInTopLevelView:(UIView*)topView;
  	- (UIImage*)snapshot;
 	- (UIImage*)snapshotOfViewHierarchy;
 	- (UIImage*)snapshotOfWindow;

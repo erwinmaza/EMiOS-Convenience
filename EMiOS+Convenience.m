@@ -385,6 +385,11 @@
 	self.frame = myFrame;
 }
 
+- (NSValue*)absoluteCoordsInTopLevelView:(UIView*)topView {
+	CGPoint center = [topView convertPoint:self.center fromView:self.superview];
+	return [NSValue valueWithCGPoint:center];
+}
+
 - (UIImage*)snapshot {
 	//	LogMethod
 	UIGraphicsBeginImageContextWithOptions(self.frame.size, FALSE, 0.0f);
