@@ -123,7 +123,7 @@
 	- (void)addShadow;
 	- (void)roundCorners;
 	- (void)removeSubviews;
-	- (void)removeSubviewsOfClass:(Class)class;
+	- (void)removeSubviewsOfClass:(Class)aClass;
  	- (void)setFrameAttribute:(enumFrameAttribute)attribute value:(int)value;
 	- (NSValue*)absoluteCoordsInTopLevelView:(UIView*)topView;
  	- (UIImage*)snapshot;
