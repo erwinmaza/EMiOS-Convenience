@@ -153,6 +153,12 @@
 
 @end
 
+@interface UICollectionView (EMiOS_Convenience)
+
+	- (void)nudgeScrollVertical:(BOOL)vertical;
+
+@end
+
 
 @interface UIDevice (EMiOS_Convenience)
 

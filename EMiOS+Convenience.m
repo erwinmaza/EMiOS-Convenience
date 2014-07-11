@@ -486,6 +486,22 @@
 
 @end
 
+@implementation UICollectionView (EMiOS_Convenience)
+
+- (void)nudgeScrollVertical:(BOOL)vertical {
+
+	CGPoint currentOfffset = self.contentOffset;
+	if (vertical) {
+		[self setContentOffset:CGPointMake(0, currentOfffset.y+1) animated:FALSE];
+		[self setContentOffset:CGPointMake(0, currentOfffset.y) animated:TRUE];
+	} else {
+		[self setContentOffset:CGPointMake(currentOfffset.x+1, 0) animated:FALSE];
+		[self setContentOffset:CGPointMake(currentOfffset.x, 0) animated:TRUE];
+	}
+}
+
+@end
+
 #pragma mark More Device Info
 
 #include <sys/types.h>
