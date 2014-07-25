@@ -226,18 +226,6 @@
 #pragma mark NSSet
 @implementation NSSet (EMiOS_Convenience)
 
-- (NSMutableArray*)toMutableArray {
-	NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
-	for (id thing in self) {
-		[array addObject:thing];
-	}
-	return array;
-}
-
-- (NSArray*)toArray {
-	return [NSArray arrayWithArray:[self toMutableArray]];
-}
-
 @end
 
 #pragma mark NSOrderedSet
