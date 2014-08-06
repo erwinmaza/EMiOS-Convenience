@@ -111,6 +111,12 @@
 	return [[self stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""] stringByReplacingOccurrencesOfString:@"\n" withString:@"\\\n"];
 }
 
+- (NSString*)possessiveVariant {
+	if ([self hasSuffix:@"'s"]) return self;
+	if ([self hasSuffix:@"s'"]) return self;
+	return [NSString stringWithFormat:@"%@'s", self];
+}
+
 @end
 
 #pragma mark DateFormatting

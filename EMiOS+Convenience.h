@@ -61,6 +61,7 @@
 - (UIColor*)toColor;
 - (NSDate*)toDate;
 - (NSString*)stringBySanitizingUserContent;
+- (NSString*)possessiveVariant;
 
 @end
 
