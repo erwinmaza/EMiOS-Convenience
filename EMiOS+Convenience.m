@@ -114,6 +114,7 @@
 - (NSString*)possessiveVariant {
 	if ([self hasSuffix:@"'s"]) return self;
 	if ([self hasSuffix:@"s'"]) return self;
+	if ([self hasSuffix:@"s"]) return [NSString stringWithFormat:@"%@'", self];
 	return [NSString stringWithFormat:@"%@'s", self];
 }
 
