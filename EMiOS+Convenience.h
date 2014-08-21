@@ -155,7 +155,7 @@
 @interface NSUserDefaults (EMiOS_Convenience)
 
 - (NSString*)stringForKey:(NSString*)key default:(NSString*)defaultValue;
-- (int)enumForKey:(NSString*)key default:(int)defaultValue;
+- (NSInteger)enumForKey:(NSString*)key default:(NSInteger)defaultValue;
 
 @end
 

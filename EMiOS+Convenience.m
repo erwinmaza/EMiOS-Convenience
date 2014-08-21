@@ -261,7 +261,7 @@
     for (NSUInteger i = 0; i < count; ++i) {
 		//        NSUInteger nElements = count - i;
 		//        NSUInteger n = (arc4random() % nElements) + i;
-        NSUInteger n = arc4random_uniform(i + 1);
+        NSUInteger n = arc4random_uniform((u_int32_t)i + 1);
         [self exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
 }
@@ -317,7 +317,7 @@
 	self.clipsToBounds = FALSE;
 	self.layer.shadowColor = [[UIColor lightGrayColor] CGColor];
 	self.layer.shadowOffset = CGSizeMake(3, 2);
-	self.layer.shadowOpacity = 0.85;
+	self.layer.shadowOpacity = 0.85f;
 	self.layer.shadowRadius = 2;
 }
 
@@ -436,8 +436,8 @@
 	return ([value length] > 0)? value : defaultValue;
 }
 
-- (int)enumForKey:(NSString*)key default:(int)defaultValue {
-	int value = [self integerForKey:key];
+- (NSInteger)enumForKey:(NSString*)key default:(NSInteger)defaultValue {
+	NSInteger value = [self integerForKey:key];
 	return (value > 0)? value : defaultValue;
 }
 
