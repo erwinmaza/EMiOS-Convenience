@@ -1,0 +1,3 @@
+[submodule "iRestaurateur/iRestaurateur/classes/ThirdParty/EMiOS/Convention"]
+	path = iRestaurateur/iRestaurateur/classes/ThirdParty/EMiOS/Convention
+	url = git@github.com:erwinmaza/EMiOS-Convention.git

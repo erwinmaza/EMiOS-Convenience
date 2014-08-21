@@ -31,26 +31,17 @@
 #define kUserDateFormat					@"MMM d, YYYY"
 #define kUserDateShortFormat			@"MMM d"
 
-
-
 #pragma mark Base Types ************
 @interface NSObject (EMiOS_Convenience)
 
-- (void *)performSelector:(SEL)selector withValue:(void *)value afterDelay:(NSTimeInterval*)delay;
+- (void*)performSelector:(SEL)selector withValue:(void*)value afterDelay:(NSTimeInterval*)delay;
 
 @end
 
 
 @interface NSNumber (EMiOS_Convenience)
 
-- (NSNumber *)add:(int)value;
-
-@end
-
-
-@interface NSSet (EMiOS_Convenience)
-
-- (NSMutableArray*)toMutableArray;
+- (NSNumber*)add:(int)value;
 
 @end
 
@@ -67,16 +58,17 @@
 
 - (NSString*)fullyEncodedStringWithEncoding:(NSStringEncoding)encoding;
 - (NSString*)fullyEncodedString;
-- (UIColor *)toColor;
-- (NSDate *)toDate;
-- (NSString *)stringBySanitizingUserContent;
+- (UIColor*)toColor;
+- (NSDate*)toDate;
+- (NSString*)stringBySanitizingUserContent;
+- (NSString*)possessiveVariant;
 
 @end
 
 
 @interface NSDictionary (EMiOS_Convenience)
 
-- (NSString *)stringForKey:(NSString*)key;
+- (NSString*)stringForKey:(NSString*)key;
 - (NSNumber*)numberForKey:(NSString*)key;
 - (NSDate*)dateForDateKey:(NSString*)key;
 - (int)intForKey:(NSString*)key;
@@ -84,9 +76,21 @@
 
 @end
 
-@interface NSArray (EMiOS_Convenience)
+@interface NSSet (EMiOS_Convenience)
+
+@end
+
+@interface NSOrderedSet (EMiOS_Convenience)
 
 - (NSUInteger)loopedIndexForProposedIndex:(NSUInteger)index;
+	
+@end
+	
+@interface NSArray (EMiOS_Convenience)
+
+- (id)loopedObjectAtProposedIndex:(NSUInteger)index;
+- (NSUInteger)loopedIndexForProposedIndex:(NSUInteger)index;
+- (id)randomObject;
 
 @end
 
@@ -97,7 +101,6 @@
 @end
 
 #pragma mark UI Kit ************
-
 @interface UIImage (EMiOS_Convenience)
 
 	- (UIImage*)antiAliased;
@@ -107,10 +110,10 @@
 @interface UIView (EMiOS_Convenience)
 
 	typedef NS_ENUM(NSInteger, enumFrameAttribute) {
-		frameAttributeX			= 1,
-		frameAttributeY			= 2,
-		frameAttributeWidth		= 3,
-		frameAttributeHeight	= 4
+		frameAttributeX			 = 1,
+		frameAttributeY			 = 2,
+		frameAttributeWidth		 = 3,
+		frameAttributeHeight	 = 4
 	};
 
 	- (void)centerVerticallyInContainer;
@@ -118,8 +121,12 @@
 	- (void)addShadow;
 	- (void)roundCorners;
 	- (void)removeSubviews;
+	- (void)removeSubviewsOfClass:(Class)aClass;
  	- (void)setFrameAttribute:(enumFrameAttribute)attribute value:(int)value;
+	- (NSValue*)absoluteCoordsInTopLevelView:(UIView*)topView;
  	- (UIImage*)snapshot;
+	- (UIImage*)snapshotOfViewHierarchy;
+	- (UIImage*)snapshotOfWindow;
 
 @end
 
@@ -140,14 +147,20 @@
 
 @interface UIColor (EMiOS_Convenience)
 
-	- (NSString *)toString;
+	- (NSString*)toString;
+
+@end
+
+@interface UICollectionView (EMiOS_Convenience)
+
+	- (void)nudgeScrollVertical:(BOOL)vertical;
 
 @end
 
 
 @interface UIDevice (EMiOS_Convenience)
 
-	- (NSString *)platform;
+	- (NSString*)platform;
 
 @end
 

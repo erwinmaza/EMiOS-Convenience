@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-void ShortNSLog(const char *functionName, int lineNumber, NSString *format, ...);
+void ShortNSLog(const char * functionName, int lineNumber, NSString * format, ...);
 
 
 @interface shortLog : NSObject
