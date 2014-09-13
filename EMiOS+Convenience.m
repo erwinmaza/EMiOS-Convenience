@@ -415,7 +415,7 @@
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 
-	UIInterfaceOrientation interfaceOrientation = self.window.rootViewController.interfaceOrientation;
+	UIInterfaceOrientation interfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
 	if (interfaceOrientation != UIInterfaceOrientationPortrait) {
 	
 		CGSize size = self.window.bounds.size;
