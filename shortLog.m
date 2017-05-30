@@ -1,7 +1,5 @@
 //  shortLog.m
-//  iRestaurateur
 //  Created by Erwin Mazariegos on 8/16/13.
-//  Copyright (c) 2013 Stratipad. All rights reserved.
 
 #import "shortLog.h"
 #import <sys/time.h>
@@ -37,7 +35,7 @@ void ShortNSLog(const char * functionName, int lineNumber, NSString * format, ..
 	char timestamp[11];
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-	strftime(timestamp, 11, "%M:%S", timeinfo);
+	strftime(timestamp, 11, "%H:%M:%S", timeinfo);
 	
 	fprintf(stderr, "%s.%03d %s%s%s\n", timestamp, detail_time.tv_usec / 1000, [prefix UTF8String], [thread UTF8String], [body UTF8String]);
 }
